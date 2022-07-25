@@ -103,7 +103,7 @@ if option1 == 'Daily':
                                         'Calls Attempted': calls,
                                         'Average Call Dur (s)': avg_dur})
 
-            b = st.file_uploader("Upload Survey responses (csv/xlsx)", key = str(i) + 'b')
+            b = st.file_uploader("Upload Survey responses (csv/xlsx)", encoding ='unicode_escape', key = str(i) + 'b')
             if b:
                 if b.name[-3:] == 'csv':
                     b = pd.read_csv(b, na_filter = False)
