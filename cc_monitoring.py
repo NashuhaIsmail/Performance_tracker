@@ -103,12 +103,12 @@ if option1 == 'Daily':
                                         'Calls Attempted': calls,
                                         'Average Call Dur (s)': avg_dur})
 
-            b = st.file_uploader("Upload Survey responses (csv/xlsx)", encoding ='unicode_escape', key = str(i) + 'b')
+            b = st.file_uploader("Upload Survey responses (csv/xlsx)",key = str(i) + 'b')
             if b:
                 if b.name[-3:] == 'csv':
-                    b = pd.read_csv(b, na_filter = False)
+                    b = pd.read_csv(b,encoding ='unicode_escape', na_filter = False)
                 else:
-                    b = pd.read_excel(b, na_filter = False)
+                    b = pd.read_excel(b, encoding ='unicode_escape', na_filter = False)
                 col1 = st.selectbox('Select column to define CR', ['', 'Row counts'] + list(b.columns), key = str(i) + 'd')
                 col2 = st.selectbox('Select column to define CC Agent', [''] + list(b.columns), key = str(i) + 'e')
                 col3 = st.selectbox('Select column Date column', [''] + list(b.columns), key = str(i) + 'f')
