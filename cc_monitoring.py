@@ -140,16 +140,16 @@ if option1 == 'Daily':
                 col3 = st.selectbox('Select column to define count', [''] + list(add_task.columns), key = str(i) + 'r')
                 add_task['extra_point']='0'
                 
-                if add_task[col1].str.contains('email'):
+                if add_task[col1].str.contains('email',regex =False):
                        extra_point= 0.33 * col3
                 else:
-                        if add_task[col1].str.contains('complete call'):
+                        if add_task[col1].str.contains('complete call',regex =False):
                             extra_point= 1 * col3
                         else:
-                            if add_task[col1].str.contains('voicemail'):
+                            if add_task[col1].str.contains('voicemail',regex =False):
                                 extra_point= 0.5 * col3
                             else:
-                                add_task[col1].str.contains('TnG')
+                                add_task[col1].str.contains('TnG',regex =False)
                                 extra_point = 0.25 * col3
                         
                         if col1 == 'Row counts':
