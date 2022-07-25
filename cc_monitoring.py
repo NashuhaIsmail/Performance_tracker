@@ -18,7 +18,7 @@ hide_st_style = """
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
-image = Image.open('C:\\Users\\User\\OneDrive\\Data Scientist\\CC Monitoring\\invoke_logo.jpg')
+image = Image.open('invoke_logo.jpg')
 st.sidebar.title('Call Centre Performance Tracker 2.0')
 st.sidebar.image(image)
 option1 = st.sidebar.selectbox('Select option', ('Daily', 'Day-to-Day'))
@@ -77,7 +77,7 @@ def to_excel(df):
     '''
     
 if option1 == 'Daily':
-    st.image('C:\\Users\\User\\OneDrive\\Data Scientist\\CC Monitoring\\new-point-system.png')
+    st.image('new-point-system.png')
     number = st.number_input('Select number of campaign(s)', min_value = 1)
     dfs = []
     for i in range(number):
