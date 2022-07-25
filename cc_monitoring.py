@@ -130,7 +130,7 @@ if option1 == 'Daily':
                         
                         df2 = clean_names(df2, 'Agent')
         add_task = st.file_uploader("Upload Additional Task form (csv/xlsx)", key = str(i) + 'add_task')
-        
+        if add_task:
             if add_task.name[-3:] == 'csv':
                     add_task = pd.read_csv(add_task, na_filter = False)
             else:
