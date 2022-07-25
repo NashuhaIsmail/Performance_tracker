@@ -138,7 +138,7 @@ if option1 == 'Daily':
                 col1 = st.selectbox('Select column to define task', ['', 'Row counts'] + list(add_task.columns), key = str(i) + 'p')
                 col2 = st.selectbox('Select column to define CC Agent', [''] + list(add_task.columns), key = str(i) + 'q')
                 col3 = st.selectbox('Select column to define count', [''] + list(add_task.columns), key = str(i) + 'r')
-                add_task['extra_point']=[]
+                add_task['extra_point']='0'
                 
                 if col1.str.contain('email'):
                        extra_point= 0.33 * col3
