@@ -18,7 +18,7 @@ hide_st_style = """
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
-image = Image.open('invoke_logo.jpg')
+image = Image.open('C:\\Users\\User\\OneDrive\\Data Scientist\\CC Monitoring\\invoke_logo.jpg')
 st.sidebar.title('Call Centre Performance Tracker 2.0')
 st.sidebar.image(image)
 option1 = st.sidebar.selectbox('Select option', ('Daily', 'Day-to-Day'))
@@ -77,7 +77,7 @@ def to_excel(df):
     '''
     
 if option1 == 'Daily':
-    st.image('new-point-system.png')
+    st.image('C:\\Users\\User\\OneDrive\\Data Scientist\\CC Monitoring\\new-point-system.png')
     number = st.number_input('Select number of campaign(s)', min_value = 1)
     dfs = []
     for i in range(number):
@@ -103,12 +103,12 @@ if option1 == 'Daily':
                                         'Calls Attempted': calls,
                                         'Average Call Dur (s)': avg_dur})
 
-            b = st.file_uploader("Upload Survey responses (csv/xlsx)",key = str(i) + 'b')
+            b = st.file_uploader("Upload Survey responses (csv/xlsx)", key = str(i) + 'b')
             if b:
                 if b.name[-3:] == 'csv':
-                    b = pd.read_csv(b,encoding ='unicode_escape', na_filter = False)
+                    b = pd.read_csv(b,encoding = 'unicode_escape', na_filter = False)
                 else:
-                    b = pd.read_excel(b, encoding ='unicode_escape', na_filter = False)
+                    b = pd.read_excel(b, encoding = 'unicode_escape',na_filter = False)
                 col1 = st.selectbox('Select column to define CR', ['', 'Row counts'] + list(b.columns), key = str(i) + 'd')
                 col2 = st.selectbox('Select column to define CC Agent', [''] + list(b.columns), key = str(i) + 'e')
                 col3 = st.selectbox('Select column Date column', [''] + list(b.columns), key = str(i) + 'f')
@@ -129,60 +129,54 @@ if option1 == 'Daily':
                             df2 = pd.DataFrame({'Agent': list(dict(b[col2].value_counts()).keys()), 'CR': list((b[col2].value_counts())) })
                         
                         df2 = clean_names(df2, 'Agent')
-        add_task = st.file_uploader("Upload Additional Task form (csv/xlsx)", key = str(i) + 'add_task')
-        if add_task:
-            if add_task.name[-3:] == 'csv':
+            add_task = st.file_uploader("Upload Additional Task form (csv/xlsx)", key = str(i) + 'add_task')
+            if add_task:
+                if add_task.name[-3:] == 'csv':
                     add_task = pd.read_csv(add_task, na_filter = False)
-            else:
-                add_task = pd.read_excel(add_task, na_filter = False)
+                else:
+                    add_task = pd.read_excel(add_task, na_filter = False)
                 col1 = st.selectbox('Select column to define task', ['', 'Row counts'] + list(add_task.columns), key = str(i) + 'p')
                 col2 = st.selectbox('Select column to define CC Agent', [''] + list(add_task.columns), key = str(i) + 'q')
                 col3 = st.selectbox('Select column to define count', [''] + list(add_task.columns), key = str(i) + 'r')
-                add_task['extra_point']='0'
                 
-                if add_task[col1].str.contains('email',regex =False):
-                       extra_point= 0.33 * col3
-                else:
-                        if add_task[col1].str.contains('complete call',regex =False):
-                            extra_point= 1 * col3
-                        else:
-                            if add_task[col1].str.contains('voicemail',regex =False):
-                                extra_point= 0.5 * col3
-                            else:
-                                add_task[col1].str.contains('TnG',regex =False)
-                                extra_point = 0.25 * col3
+                add_task['extra_point']=0
+                
+                add_task['extra_point'][add_task['Task'].str.contains('TnG')]= add_task['Count'] * 0.25
+                add_task['extra_point'][add_task['Task'].str.contains('complete call')]= add_task['Count'] * 1
+                add_task['extra_point'][add_task['Task'].str.contains('voice mail')]= add_task['Count'] * 0.5
+                add_task['extra_point'][add_task['Task'].str.contains('email')]= add_task['Count'] * 0.33
                         
-                        if col1 == 'Row counts':
-                            df3 = pd.DataFrame({'Agent': list(dict(add_task[col2].value_counts()).keys()), 'Task': list((add_task[col1].value_counts())),'Ex_point': list((add_task[extra_point].value_counts())) })
+                if col1 == 'Row counts':
+                    df3 = pd.DataFrame({'Agent': list(dict(add_task[col2].value_counts()).keys()), 'Task': list((add_task[col1].value_counts())),'Ex_point': list((add_task['extra_point'].value_counts())) })
 
-                        else:
-                            add_task = add_task[add_task[col1] != '']
-                            df3 = pd.DataFrame({'Agent': list(dict(add_task[col2].value_counts()).keys()), 'Task': list((add_task[col1].value_counts())),'Ex_point': list((add_task[extra_point].value_counts())) })
+                else:
+                    add_task = add_task[add_task[col1] != '']
+                    df3 = pd.DataFrame({'Agent': list(dict(add_task[col2].value_counts()).keys()), 'Task': list((add_task[col1].value_counts())),'Ex_point': list((add_task['extra_point'].value_counts())) })
 
-                        if isinstance(a, pd.DataFrame) and isinstance(b, pd.DataFrame)and isinstance(add_task, pd.DataFrame):
-                            df = pd.merge(df1,df2,df3,on='Agent',how='left')
-                            df['Calls Attempted'] = [int(x) if math.isnan(x) == False else 0 for x in df['Calls Attempted']]
-                            df['CR'] = [int(x) if math.isnan(x) == False else 0 for x in df['CR']]
-                            df['Calls-CR'] = df['Calls Attempted'] - df['CR']
+                    if isinstance(a, pd.DataFrame) and isinstance(b, pd.DataFrame)and isinstance(add_task, pd.DataFrame):
+                        df = pd.merge(df1,df2,df3,on='Agent',how='left')
+                        df['Calls Attempted'] = [int(x) if math.isnan(x) == False else 0 for x in df['Calls Attempted']]
+                        df['CR'] = [int(x) if math.isnan(x) == False else 0 for x in df['CR']]
+                        df['Calls-CR'] = df['Calls Attempted'] - df['CR']
                             
                            
-                            ''''
+                        ''''
                             this use when add new category, the calculation of point also different
                             '''
                             
-                            if cat == 'A':
-                                df['Points'] = (df['Calls-CR'] * 10/60) + (df['CR'] * 5) + (df['Ex_point'])
-                            elif cat == 'B':
-                                df['Points'] = (df['Calls-CR'] * 10/60) + (df['CR'] * 10)+ (df['Ex_point'])
-                            elif cat == 'C':
+                        if cat == 'A':
+                            df['Points'] = (df['Calls-CR'] * 10/60) + (df['CR'] * 5) + (df['Ex_point'])
+                        elif cat == 'B':
+                            df['Points'] = (df['Calls-CR'] * 10/60) + (df['CR'] * 10)+ (df['Ex_point'])
+                        elif cat == 'C':
                                 df['Points'] = (df['Calls-CR'] * 10/50) + (df['CR'] * 10)+ (df['Ex_point'])
-                            elif cat == 'D':
+                        elif cat == 'D':
                                 df['Points'] = (df['Calls-CR'] * 0.25) + (df['CR'] * 20)+ (df['Ex_point'])
-                            else:
+                        else:
                                 df['Points'] = (df['Calls-CR'] * 25/80) + (df['CR'] * 25)+ (df['Ex_point'])
                                                 
-                            df = df[['Agent', 'Calls Attempted', 'CR', 'Points', 'Average Call Dur (s)']]
-                            dfs.append(df)
+                        df = df[['Agent', 'Calls Attempted', 'CR', 'Points', 'Average Call Dur (s)']]
+                        dfs.append(df)
 
 
     if len(dfs) == number:
