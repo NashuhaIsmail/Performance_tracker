@@ -147,11 +147,11 @@ if option1 == 'Daily':
                 add_task['extra_point'][add_task[col1].str.contains('email')]= add_task[col3] * 0.33
                         
                 if col1 == 'Row counts':
-                    df3 = pd.DataFrame({'Agent': list(dict(add_task[col2].value_counts()).keys()), 'Task': list((add_task[col1].value_counts())),'Ex_point': list((add_task['extra_point'].value_counts())) })
+                    df3 = pd.DataFrame({'Agent': list(dict(add_task[col2].value_counts()).keys()), 'Task': list((add_task[col2].value_counts())),'Ex_point': list((add_task[col2].value_counts())) })
 
                 else:
                     add_task = add_task[add_task[col1] != '']
-                    df3 = pd.DataFrame({'Agent': list(dict(add_task[col2].value_counts()).keys()), 'Task': list((add_task[col1].value_counts())),'Ex_point': list((add_task['extra_point'].value_counts())) })
+                    df3 = pd.DataFrame({'Agent': list(dict(add_task[col2].value_counts()).keys()), 'Task': list((add_task[col2].value_counts())),'Ex_point': list((add_task[col2].value_counts())) })
 
                     if isinstance(a, pd.DataFrame) and isinstance(b, pd.DataFrame)and isinstance(add_task, pd.DataFrame):
                         df = pd.merge(df1,df2,df3,on='Agent',how='left')
