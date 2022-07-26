@@ -108,7 +108,7 @@ if option1 == 'Daily':
                 if b.name[-3:] == 'csv':
                     b = pd.read_csv(b,encoding = 'unicode_escape', na_filter = False)
                 else:
-                    b = pd.read_excel(b, encoding = 'unicode_escape',na_filter = False)
+                    b = pd.read_excel(b,encoding = 'unicode_escape', na_filter = False)
                 col1 = st.selectbox('Select column to define CR', ['', 'Row counts'] + list(b.columns), key = str(i) + 'd')
                 col2 = st.selectbox('Select column to define CC Agent', [''] + list(b.columns), key = str(i) + 'e')
                 col3 = st.selectbox('Select column Date column', [''] + list(b.columns), key = str(i) + 'f')
@@ -141,10 +141,10 @@ if option1 == 'Daily':
                 
                 add_task['extra_point']=0
                 
-                add_task['extra_point'][add_task['Task'].str.contains('TnG')]= add_task['Count'] * 0.25
-                add_task['extra_point'][add_task['Task'].str.contains('complete call')]= add_task['Count'] * 1
-                add_task['extra_point'][add_task['Task'].str.contains('voice mail')]= add_task['Count'] * 0.5
-                add_task['extra_point'][add_task['Task'].str.contains('email')]= add_task['Count'] * 0.33
+                add_task['extra_point'][add_task[col1].str.contains('TnG')]= add_task[col3] * 0.25
+                add_task['extra_point'][add_task[col1].str.contains('complete call')]= add_task[col3] * 1
+                add_task['extra_point'][add_task[col1].str.contains('voice mail')]= add_task[col3] * 0.5
+                add_task['extra_point'][add_task[col1].str.contains('email')]= add_task[col3] * 0.33
                         
                 if col1 == 'Row counts':
                     df3 = pd.DataFrame({'Agent': list(dict(add_task[col2].value_counts()).keys()), 'Task': list((add_task[col1].value_counts())),'Ex_point': list((add_task['extra_point'].value_counts())) })
