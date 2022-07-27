@@ -83,13 +83,13 @@ def clean_email(add_task):
     returns dataframe with cleaned names
     this needed when to join the file
     '''
-    df['Email Address'] = [x.strip() for x in df['Email Address']]
-    df['Email Address'] = [x.replace('@invokeisdata.com', '') for x in df['Email Address']]
-    df['Email Address'] = [x.replace('hudahusna', 'huda') for x in df['Email Address']]
-    df['Email Address'] = [x.replace('amishaa', 'amisha') for x in df['Email Address']]
-    df['Email Address'] = [x.replace('athiyah', 'tiyah') for x in df['Email Address']]
-    df['Email Address'] = [x.replace('atiqahliyana', 'atiqah') for x in df['Email Address']]
-    return df 
+    add_task['Email Address'] = [x.strip() for x in df['Email Address']]
+    add_task['Email Address'] = [x.replace('@invokeisdata.com', '') for x in df['Email Address']]
+    add_task['Email Address'] = [x.replace('hudahusna', 'huda') for x in df['Email Address']]
+    add_task['Email Address'] = [x.replace('amishaa', 'amisha') for x in df['Email Address']]
+   add_task['Email Address'] = [x.replace('athiyah', 'tiyah') for x in df['Email Address']]
+    add_task['Email Address'] = [x.replace('atiqahliyana', 'atiqah') for x in df['Email Address']]
+    return add_task 
 
     ''''
     this is used if want to add new category which F, put F at the select survey category
