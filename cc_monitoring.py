@@ -187,19 +187,18 @@ if option1 == 'Daily':
                             
                     if cat == 'A':
                             df['Points'] =(df['Calls-CR'] * 10/60) + (df['CR'] * 5) + (df['Ex_point'])
-                            df['Points']=df['Points'].astype(float)
                     elif cat == 'B':
                             df['Points'] =(df['Calls-CR'] * 10/60) + (df['CR'] * 10)+ (df['Ex_point'])
-                            df['Points']=df['Points'].astype(float)
+                            
                     elif cat == 'C':
                                 df['Points'] =(df['Calls-CR'] * 10/50) + (df['CR'] * 10)+ (df['Ex_point'])
-                                df['Points']=df['Points'].astype(float)
+                               
                     elif cat == 'D':
                                 df['Points'] =(df['Calls-CR'] * 0.25) + (df['CR'] * 20)+ (df['Ex_point'])
-                                df['Points']=df['Points'].astype(float)
+                             
                     else:
                                 df['Points'] =(df['Calls-CR'] * 25/80) + (df['CR'] * 25)+ (df['Ex_point'])
-                                df['Points']=df['Points'].astype(float)
+                             
                                                 
                     df = df[['Agent', 'Calls Attempted', 'CR', 'Points', 'Average Call Dur (s)']]
                     dfs.append(df)
