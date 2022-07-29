@@ -206,6 +206,7 @@ if option1 == 'Daily':
         calls = [sum(df[df['Agent'] == x]['Calls Attempted']) for x in agents]
         crs = [sum(df[df['Agent'] == x]['CR']) for x in agents]
         points =[sum(df[df['Agent'] == x]['Points']) for x in agents]
+        float(points)
         avg_dur = [sum(df[df['Agent'] == x]['Average Call Dur (s)']) / len(df[df['Agent'] == x]) for x in agents]
         df = pd.DataFrame({'Agent': agents,
                             'Calls Attempted': calls,
