@@ -163,6 +163,7 @@ if option1 == 'Daily':
                 add_task['extra_point']=0
                 
                 add_task['extra_point'][add_task['Task'].str.contains('TnG')]= add_task['Count'] * 0.25
+                add_task['extra_point'][add_task['Task'].str.contains('Whatsapp')]= add_task['Count'] * 0.25
                 add_task['extra_point'][add_task['Task'].str.contains('complete call')]= add_task['Count'] * 1
                 add_task['extra_point'][add_task['Task'].str.contains('voice mail')]= add_task['Count'] * 0.5
                 add_task['extra_point'][add_task['Task'].str.contains('email')]= add_task['Count'] * 0.33
