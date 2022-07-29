@@ -187,14 +187,19 @@ if option1 == 'Daily':
                             
                     if cat == 'A':
                             df['Points'] =(df['Calls-CR'] * 10/60) + (df['CR'] * 5) + (df['Ex_point'])
+                                 df['Points']=df['Points'].astype(float)
                     elif cat == 'B':
                             df['Points'] =(df['Calls-CR'] * 10/60) + (df['CR'] * 10)+ (df['Ex_point'])
+                                    df['Points']=df['Points'].astype(float)
                     elif cat == 'C':
                                 df['Points'] =(df['Calls-CR'] * 10/50) + (df['CR'] * 10)+ (df['Ex_point'])
+                                    df['Points']=df['Points'].astype(float)
                     elif cat == 'D':
                                 df['Points'] =(df['Calls-CR'] * 0.25) + (df['CR'] * 20)+ (df['Ex_point'])
+                                    df['Points']=df['Points'].astype(float)
                     else:
                                 df['Points'] =(df['Calls-CR'] * 25/80) + (df['CR'] * 25)+ (df['Ex_point'])
+                                    df['Points']=df['Points'].astype(float)
                                                 
                     df = df[['Agent', 'Calls Attempted', 'CR', 'Points', 'Average Call Dur (s)']]
                     dfs.append(df)
@@ -206,7 +211,6 @@ if option1 == 'Daily':
         calls = [sum(df[df['Agent'] == x]['Calls Attempted']) for x in agents]
         crs = [sum(df[df['Agent'] == x]['CR']) for x in agents]
         points =[sum(df[df['Agent'] == x]['Points']) for x in agents]
-        float(points)
         avg_dur = [sum(df[df['Agent'] == x]['Average Call Dur (s)']) / len(df[df['Agent'] == x]) for x in agents]
         df = pd.DataFrame({'Agent': agents,
                             'Calls Attempted': calls,
